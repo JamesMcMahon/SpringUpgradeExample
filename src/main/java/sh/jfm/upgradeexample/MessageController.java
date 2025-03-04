@@ -20,4 +20,9 @@ public class MessageController {
     public String getMessageFromDB() {
         return dbMessageRepository.getDBMessageById(1L).getMessage();
     }
+
+    @GetMapping("/secure-message")
+    public String getSecureMessage() {
+        return "Hello Secure World!";
+    }
 }
