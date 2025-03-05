@@ -1,2 +1,3 @@
 INSERT INTO messages (message)
-VALUES ('Hello World from DB!');
+VALUES ('message from db 1'),
+       ('message from db 2');

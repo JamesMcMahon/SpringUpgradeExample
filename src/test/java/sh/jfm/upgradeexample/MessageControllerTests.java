@@ -1,6 +1,7 @@
 package sh.jfm.upgradeexample;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,10 +37,11 @@ public class MessageControllerTests {
         given()
                 .port(port)
                 .when()
-                .get("/db-message")
+                .get("/db-messages")
                 .then()
                 .statusCode(200)
-                .body(equalTo("Hello World from DB!"));
+                .contentType(ContentType.JSON)
+                .body(equalTo("[\"message from db 1\",\"message from db 2\"]"));
     }
 
     @Test

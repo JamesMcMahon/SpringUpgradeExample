@@ -3,6 +3,10 @@ package sh.jfm.upgradeexample;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @RestController
 public class MessageController {
     private final DBMessageRepository dbMessageRepository;
@@ -16,9 +20,11 @@ public class MessageController {
         return "Hello World!";
     }
 
-    @GetMapping("/db-message")
-    public String getMessageFromDB() {
-        return dbMessageRepository.getDBMessageById(1L).getMessage();
+    @GetMapping("/db-messages")
+    public Collection<String> getMessageFromDB() {
+        return StreamSupport.stream(dbMessageRepository.findAll().spliterator(), false)
+                .map(DBMessage::getMessage)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/secure-message")
