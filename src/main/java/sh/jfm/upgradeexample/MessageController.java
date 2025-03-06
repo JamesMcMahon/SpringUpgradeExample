@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 public class MessageController {
@@ -22,7 +21,8 @@ public class MessageController {
 
     @GetMapping("/db-messages")
     public Collection<String> getMessageFromDB() {
-        return StreamSupport.stream(dbMessageRepository.findAll().spliterator(), false)
+        return dbMessageRepository.findAll()
+                .stream()
                 .map(DBMessage::getMessage)
                 .collect(Collectors.toList());
     }
